@@ -128,3 +128,6 @@ EMAIL_HOST_USER = 'kwabena4140@gmail.com'
 EMAIL_HOST_PASSWORD = 'nkvmgjphneonyuex'
 
 AUTH_USER_MODEL = 'accounts.CustomUser'
+
+AUTHENTICATION_BACKENDS = [
+    'accounts.auth.EmailBackend']
