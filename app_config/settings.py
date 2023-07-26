@@ -114,7 +114,7 @@ STATIC_ROOT = BASE_DIR / 'staticfiles/'
 MEDIA_URL = '/media/'
 MEDIA_ROOT = BASE_DIR / 'media/'
 
-LOGIN_URL = 'accounts:login'
+LOGIN_URL = 'login'
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 
@@ -130,4 +130,4 @@ EMAIL_HOST_PASSWORD = 'nkvmgjphneonyuex'
 AUTH_USER_MODEL = 'accounts.CustomUser'
 
 AUTHENTICATION_BACKENDS = [
-    'accounts.auth.EmailBackend']
+    'accounts.auth.EmailOrUsernameModelBackend']
