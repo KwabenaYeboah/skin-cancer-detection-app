@@ -1,0 +1,51 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>{{username}}'s History</title>
+    <link href="{% static 'css/pdf.css' %}" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <div class="text-center" style="width: 85%; border-bottom: 2px solid #0d6efd;">
+            <h1 class="mb-0 text-primary" style="font-family: 'Courier New', Courier, monospace;">{{ username }}'s History</h1>
+            <p>Email: {{ email }}</p>
+            <p>Report generated at: {{ timestamp }}</p>
+        </div>
+        <div class="d-flex flex-wrap justify-content-center">
+            {% for prediction in predictions %}
+            <div class="card m-2 shadow" style="max-width: 350px;">
+                <div class="row g-0">
+                    <div class="col-12 text-center">
+                        <img src="{{prediction.image.url}}" width="72" height="50" class="img-fluid rounded mx-auto d-block">
+                    </div>
+                    <div class="col-12">
+                        <div class="card-body text-center">
+                            {% if prediction.note %}
+                                <p class="card-text">Note: {{ prediction.note }}</p>
+                            {% endif %}
+                            <p class="card-text fw-bold text-secondary">Prediction: 
+                                {% if prediction.result == 'Malignant' %}
+                                <span class="fw-bold text-danger">
+                                    {{ prediction.result }}
+                                </span>
+                                {% else %}
+                                <span class="fw-bold text-primary">
+                                    {{ prediction.result }}
+                                </span>
+                                {% endif %}
+                            </p>
+                            <p class="card-text">Confidence: {{ prediction.confidence }}%</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% empty %}
+            <p>No images have been uploaded yet.</p>
+            {% endfor %}
+        </div>
+    </div>
+</body>
+</html>

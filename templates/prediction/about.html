@@ -1,0 +1,44 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="container py-5">
+
+    <div class="row justify-content-center">
+        <div class="col-lg-8">
+            <div class="mb-5">
+                <h1 class="display-4 text-center">The Project</h1>
+                <hr>
+                <p class="lead">
+                    Our project aims to provide an advanced tool for the early detection of skin cancer. We utilize state-of-the-art machine learning models, specifically leveraging the Mobilenet_v2 architecture, to analyze skin lesions and determine their nature.
+                </p>
+            </div>
+
+            <div class="mb-5">
+                <h2 class="display-4 text-center">Technology</h2>
+                <hr>
+                <p class="lead">
+                    We employ deep learning methodologies to train our models. Deep learning is a subset of machine learning, designed to mimic the human brain's processing of data and decision-making capabilities. Specifically, we utilize the Mobilenet_v2 architecture for our models, designed to optimize accuracy while minimizing computational costs.
+                </p>
+            </div>
+
+            <div class="mb-5">
+                <h2 class="display-4 text-center">How to Use The Tool</h2>
+                <hr>
+                <p class="lead">
+                    Using our tool is simple: upload an image of the skin lesion you're concerned about, and our model will analyze it and provide a prediction about whether it's likely to be malignant or benign. Please remember that this tool is not a substitute for professional medical advice. If you're worried about any skin changes, always consult a healthcare professional.
+                </p>
+            </div>
+
+            <div>
+                <h2 class="display-4 text-center">Get In Touch</h2>
+                <hr>
+                <p class="lead">
+                    We value your input and feedback. If you have any queries or comments about our tool, please don't hesitate to <a href="mailto:mhmd.kwabena4140@gmail.com">contact us</a>.
+                </p>
+            </div>
+        </div>
+    </div>
+
+</div>
+{% endblock content %}

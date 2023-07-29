@@ -1,0 +1,95 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+  <div class="container mt-5">
+    <!-- Metric Section -->
+    <div class="row justify-content-center">
+      <div class="col-lg-8">
+        <h2 class="text-center mb-4">Metrics</h2>
+        <div class="row">
+          <div class="col-sm-6">
+            <div class="card text-white bg-primary mb-3">
+              <div class="card-body text-center">
+                <h5 class="card-title">F1 Score</h5>
+                <p class="card-text">{{ f1_score }}</p>
+              </div>
+            </div>
+          </div>
+          <div class="col-sm-6">
+            <div class="card text-white bg-warning mb-3">
+              <div class="card-body text-center">
+                <h5 class="card-title">Val Precision</h5>
+                <p class="card-text">{{ val_precision }}</p>
+              </div>
+            </div>
+          </div>
+          <div class="col-sm-6">
+            <div class="card text-white bg-success mb-3">
+              <div class="card-body text-center">
+                <h5 class="card-title">Val Recall</h5>
+                <p class="card-text">{{ val_recall }}</p>
+              </div>
+            </div>
+          </div>
+          <div class="col-sm-6">
+            <div class="card text-white bg-danger mb-3">
+              <div class="card-body text-center">
+                <h5 class="card-title">Test Loss</h5>
+                <p class="card-text">{{ test_loss }}</p>
+              </div>
+            </div>
+          </div>
+          <div class="col-sm-6">
+            <div class="card text-white bg-info mb-3">
+              <div class="card-body text-center">
+                <h5 class="card-title">Test Accuracy</h5>
+                <p class="card-text">{{ test_accuracy }}</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Image Section -->
+    <div class="row justify-content-center mt-5">
+      <div class="col-lg-8">
+        <h2 class="text-center mb-4">Visualizations</h2>
+        <div class="row">
+          <div class="col-sm-6">
+            <div class="card mb-3">
+              <img src="{% static 'metrics/train_val_acc.png' %}" width="100px" height="250px" class="card-img-top" alt="Training and Validation Accuracy">
+              <div class="card-body">
+                <h6 class="card-title text-center">Training and Validation Accuracy</h5>
+              </div>
+            </div>
+          </div>
+          <div class="col-sm-6">
+            <div class="card mb-3">
+              <img src="{% static 'metrics/train_val_loss.png' %}" width="100px" height="250px" class="card-img-top" alt="Training and Validation Loss">
+              <div class="card-body">
+                <h6 class="card-title text-center">Training and Validation Loss</h5>
+              </div>
+            </div>
+          </div>
+          <div class="col-sm-6">
+            <div class="card mb-3">
+              <img src="{% static 'metrics/roc_curve.png' %}" width="100px" height="250px" class="card-img-top" alt="ROC Curve">
+              <div class="card-body">
+                <h6 class="card-title text-center">ROC Curve</h5>
+              </div>
+            </div>
+          </div>
+          <div class="col-sm-6">
+            <div class="card mb-3">
+              <img src="{% static 'metrics/confusion_matrix.png' %}" width="100px" height="250px" class="card-img-top" alt="Confusion Matrix">
+              <div class="card-body">
+                <h6 class="card-title text-center">Confusion Matrix</h5>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+{% endblock %}

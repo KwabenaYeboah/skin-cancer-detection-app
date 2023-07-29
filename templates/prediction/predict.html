@@ -1,0 +1,79 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div style="height: 60px;"> <!-- Adjust height as needed -->
+</div>
+<div class="container mt-10">
+    <form method="POST" action="{% url 'predict' %}" enctype="multipart/form-data" class="border rounded p-4 mt-5 mx-auto border-primary border-1" style="max-width: 500px;" id="file-upload-form">
+        {% csrf_token %}
+        <div class="d-flex flex-column align-items-center">
+            <input type="file" name="image" id="file-upload" class="d-none" accept="image/*" required>
+            <input type="file" name="image" id="camera-input" class="d-none" accept="image/*" capture="environment">
+            <label for="file-upload" class="d-flex flex-column align-items-center dropzone text-center text-secondary" style="cursor: pointer;">
+                <img src="" id="image-preview" class="img-fluid" style="max-height: 200px; display: none;">
+                <i class="bi bi-cloud-arrow-up h1"></i>
+                <span>Drag and drop your image</span>
+                <span class="text-xs">or</span>
+                <span class="btn btn-primary">Select image</span>
+                <span class="text-xs">or</span>
+                <label for="camera-input" class="btn btn-primary mt-2">Capture with camera</label>
+            </label>
+            <span class="text-secondary text-xs">Allowed Format: PNG, JPG up to 10MB</span>
+        </div>
+
+        <div class="form-group mt-3">
+            <label for="id_note">Note (Optional)</label>
+            <input type="text" name="note" id="id_note" class="form-control" placeholder="Write a note for the image">
+        </div>
+        <div class="text-center mt-3">
+            <button type="submit" class="btn btn-success">Predict</button>
+        </div>
+    </form>
+</div>
+
+{% block extra_js %}
+<script>
+    var dropzone = document.querySelector('.dropzone');
+    var fileInput = document.querySelector('#file-upload');
+    var cameraInput = document.querySelector('#camera-input');
+    var preview = document.querySelector('#image-preview');
+    
+    function handleFiles(files) {
+        fileInput.files = files;
+        if (files.length > 0) {
+            dropzone.querySelector('span').textContent = files[0].name;
+            var reader = new FileReader();
+            reader.onload = function(e) {
+                preview.src = e.target.result;
+                preview.style.display = 'block';
+            }
+            reader.readAsDataURL(files[0]);
+        }
+    }
+
+    dropzone.addEventListener('dragover', function(e) {
+        e.preventDefault();
+        this.classList.add('dragging');
+    });
+
+    dropzone.addEventListener('dragleave', function(e) {
+        this.classList.remove('dragging');
+    });
+
+    dropzone.addEventListener('drop', function(e) {
+        e.preventDefault();
+        handleFiles(e.dataTransfer.files);
+        this.classList.remove('dragging');
+    });
+
+    fileInput.addEventListener('change', function(e) {
+        handleFiles(fileInput.files);
+    });
+
+    cameraInput.addEventListener('change', function(e) {
+        handleFiles(cameraInput.files);
+    });
+</script>
+{% endblock %}
+
+{% endblock %}

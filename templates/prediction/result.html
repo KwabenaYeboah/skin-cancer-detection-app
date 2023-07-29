@@ -1,0 +1,44 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-lg-6">
+            <div class="card border-0 shadow mb-4">
+                <div class="card-body">
+                    <h1 class="h3 mb-4 text-center">Prediction Results</h1>
+                    <div class="text-center mb-4">
+                        <img src="{{ prediction.image.url }}" class="rounded img-fluid" style="max-width: 300px;" alt="Uploaded image">
+                    </div>
+                    <div class="text-center">
+                        {% if prediction.note %}
+                            <p class="card-text">
+                                <span class="fw-bold text-secondary">Note:</span> {{ prediction.note }}
+                            </p>
+                        {% endif %}
+                        <div class="mb-3">
+                            <span class="fw-bold text-secondary">Prediction:</span> 
+                            {% if prediction.result == 'Malignant' %}
+                            <span class="fw-bold text-danger">
+                                {{ prediction.result }}
+                            </span>
+                            {% else %}
+                            <span class="fw-bold text-primary">
+                                {{ prediction.result }}
+                            </span>
+                            {% endif %}
+                            
+                        </div>
+                        <h5>
+                            <span class="fw-bold text-secondary">Confidence:</span> {{prediction.confidence}}%
+                        </h5>
+                    </div>
+                </div>
+            </div>
+            <div class="d-flex justify-content-center">
+                <a href="{% url 'predict' %}" class="btn btn-secondary">Back to Predictions</a>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
