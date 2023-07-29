@@ -25,7 +25,7 @@ class LoginView(View):
             if user is not None:
                 if user.is_active:
                     login(request, user)
-                    return redirect("home")
+                    return redirect("predict")
                 messages.warning(
                     request, "Account Not Activated. Check Your Email for Activation code!"
                 )
@@ -38,7 +38,7 @@ class SignupView(View):
     
     def get(self, request):
         if request.user.is_authenticated:
-            return redirect("home")
+            return redirect("predict")
         form = SignUpForm()
         return render(request, "registration/signup.html", {"form": form})
 
