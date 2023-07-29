@@ -1,3 +1,6 @@
 django==4.2.2
 pillow==9.5.0
-keras
+tensorflow
+numpy
+opencv-python
+weasyprint 

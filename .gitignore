@@ -3,6 +3,14 @@ __pycache__/
 *.py[cod]
 *$py.class
 
+# local 
+best_epoch/
+history.json
+localhost.cnf
+localhost.crt
+localhost.key
+
+media/
 # C extensions
 *.so
 
