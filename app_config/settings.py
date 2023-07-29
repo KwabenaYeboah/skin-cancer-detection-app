@@ -28,6 +28,8 @@ INSTALLED_APPS = [
     
     #local apps
     'accounts',
+    'prediction',
+    'sslserver',
 ]
 
 MIDDLEWARE = [
@@ -115,6 +117,7 @@ MEDIA_URL = '/media/'
 MEDIA_ROOT = BASE_DIR / 'media/'
 
 LOGIN_URL = 'login'
+LOGOUT_REDIRECT_URL = 'login'
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 
@@ -131,3 +134,6 @@ AUTH_USER_MODEL = 'accounts.CustomUser'
 
 AUTHENTICATION_BACKENDS = [
     'accounts.auth.EmailOrUsernameModelBackend']
+
+SSL_CERTIFICATE = BASE_DIR / 'localhost.crt'
+SSL_PRIVATE_KEY = BASE_DIR / "localhost.key"
