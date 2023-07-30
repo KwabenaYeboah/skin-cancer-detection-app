@@ -29,7 +29,7 @@ INSTALLED_APPS = [
     #local apps
     'accounts',
     'prediction',
-    'sslserver',
+    # 'sslserver',
 ]
 
 MIDDLEWARE = [
@@ -135,5 +135,5 @@ AUTH_USER_MODEL = 'accounts.CustomUser'
 AUTHENTICATION_BACKENDS = [
     'accounts.auth.EmailOrUsernameModelBackend']
 
-SSL_CERTIFICATE = BASE_DIR / 'localhost.crt'
-SSL_PRIVATE_KEY = BASE_DIR / "localhost.key"
+# SSL_CERTIFICATE = BASE_DIR / 'localhost.crt'
+# SSL_PRIVATE_KEY = BASE_DIR / "localhost.key"
