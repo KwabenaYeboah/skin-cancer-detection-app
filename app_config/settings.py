@@ -13,7 +13,7 @@ SECRET_KEY = '3f15763f0aaf948d460c11128d0a7cc03c254b345126b181a633e7fefb4745d569
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['kwabenakwartengregina.pythonanywhere.com',]
 
 
 # Application definition
