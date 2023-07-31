@@ -5,14 +5,14 @@ from django.views.generic import ListView, DetailView
 from django.views import View
 from django.contrib import messages
 from django.shortcuts import redirect, render
-from django.core.mail import EmailMessage
 from django.views.generic.edit import FormView
 from django.db.models.query import QuerySet
 from django.views.generic import TemplateView
 
 from .models import Predict
 from .forms import PredictForm
-from .utils import upload, generate_user_history_pdf
+from .utils import (predict_image, generate_pdf_and_send_email, 
+                    generate_user_history_pdf, generate_single_record_pdf_and_send_mail)
 
 class PredictView(LoginRequiredMixin, FormView):
     template_name = 'prediction/predict.html'
@@ -24,17 +24,19 @@ class PredictView(LoginRequiredMixin, FormView):
         image_instance.save()
         img_path = image_instance.image.name
         
-        result,confidence = upload(img_path)
-        
+        result = predict_image.delay(img_path)
+        # Wait for the task to finish and get the result
+        result,confidence = result.get()
+
         image_instance.result = result
         image_instance.confidence = confidence
         image_instance.save()
-
+    
         messages.success(self.request, 'Image uploaded and processed successfully')
         return redirect('result', image_instance.pk)
 
     def form_invalid(self, form):
-        messages.error(self.request, 'Error uploading and processing image')
+        messages.error(self.request, form.errors)
         return super().form_invalid(form)
     
     
@@ -71,29 +73,30 @@ class UserHistoryPDFEmailView(LoginRequiredMixin, View):
             return redirect('/')
         recipient_email = request.POST.get('recipient_email')
         message = request.POST.get('message')
-        pdf_file = generate_user_history_pdf(request.user, request.build_absolute_uri())
-        # Prepare email
-        email = EmailMessage(
-            'Your Prediction History',
-            message,
-            self.request.user.email,
-            [recipient_email],
-        )
+        generate_pdf_and_send_email.delay(request.user.pk, request.build_absolute_uri(), recipient_email, message)
         
-        email.attach(f'{request.user.username}_prediction_history.pdf', pdf_file.getvalue(), 'application/pdf')
-        email.send()
-        
-        messages.success(request, 'Prediction History Successfully Sent')
+        messages.success(request, 'Prediction history Successfully Sent. Check your email.')
         return redirect('history')
+    
+class EmailRecord(LoginRequiredMixin, View):
+    def post(self, request, *args, **kwargs):
+        recipient_email = request.POST.get('recipient_email')
+        message = request.POST.get('message')
+        image_id = self.kwargs['pk']
+        generate_single_record_pdf_and_send_mail.delay(self.request.user.id, image_id, request.build_absolute_uri(), recipient_email, message)
+        
+        messages.success(request, 'Prediction history Successfully Sent. Check your email.')
+        return redirect('result', image_id)
 
 class ModelPerformanceView(View):
     def get(self, request):
         context = {
         'f1_score': 0.82,
-        'val_precision': 0.91,  
-        'val_recall': 0.92,  
-        'test_loss': 0.29, 
+        'val_precision': 0.83,  
+        'val_recall': 0.82,  
+        'test_loss': 0.31, 
         'test_accuracy': 0.84,
+        'auc_score':0.89
     }
         return render(request, 'prediction/metrics.html', context)
     

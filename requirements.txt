@@ -3,4 +3,6 @@ pillow==9.5.0
 tensorflow
 numpy
 opencv-python
-weasyprint 
+weasyprint
+celery
+redis

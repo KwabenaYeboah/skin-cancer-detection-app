@@ -13,7 +13,7 @@ SECRET_KEY = '3f15763f0aaf948d460c11128d0a7cc03c254b345126b181a633e7fefb4745d569
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['kwabenakwartengregina.pythonanywhere.com',]
+ALLOWED_HOSTS = ['*','kwabenakwartengregina.pythonanywhere.com',]
 
 
 # Application definition
@@ -137,3 +137,9 @@ AUTHENTICATION_BACKENDS = [
 
 # SSL_CERTIFICATE = BASE_DIR / 'localhost.crt'
 # SSL_PRIVATE_KEY = BASE_DIR / "localhost.key"
+
+CELERY_BROKER_URL = 'redis://default:redispw@localhost:32769'
+CELERY_RESULT_BACKEND = 'redis://default:redispw@localhost:32769'
+CELERY_ACCEPT_CONTENT = ['application/json']
+CELERY_RESULT_SERIALIZER = 'json'
+CELERY_TASK_SERIALIZER = 'json'

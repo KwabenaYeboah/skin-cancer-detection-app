@@ -33,6 +33,48 @@
                             <span class="fw-bold text-secondary">Confidence:</span> {{prediction.confidence}}%
                         </h5>
                     </div>
+                    <div class="d-flex justify-content-center mt-4">
+                        {% if prediction.result == 'Malignant' %}
+                        <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#emailModal">
+                            Email Result as PDF
+                        </button>
+                        {% else %}
+                        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#emailModal">
+                            Email Result as PDF
+                        </button>
+                        {% endif %}
+                        
+                    </div>
+                    
+
+                    <!-- Modal -->
+                    <div class="modal fade" id="emailModal" tabindex="-1" aria-labelledby="emailModalLabel" aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h6 class="modal-title" id="emailModalLabel">Email Result as PDF</h6>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
+                                <form action="{% url 'email_result' prediction.pk %}" method="POST">
+                                    {% csrf_token %}
+                                    <div class="modal-body">
+                                        <div class="mb-3">
+                                            <label for="recipientEmail" class="form-label">Recipient's Email</label>
+                                            <input type="email" class="form-control" id="recipientEmail" name="recipient_email" required>
+                                        </div>
+                                        <div class="mb-3">
+                                            <label for="message" class="form-label">Message</label>
+                                            <textarea class="form-control" id="message" name="message" rows="3"></textarea>
+                                        </div>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                        <button type="submit" class="btn btn-primary">Send Email</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
             <div class="d-flex justify-content-center">
