@@ -26,7 +26,7 @@ trained_model_path = os.path.join(settings.BASE_DIR, 'best_epoch')
 trained_model = load_model(trained_model_path)
 Labels = ['Benign', 'Malignant']
 
-@shared_task
+
 def predict_image(filename):
     img = cv2.imread(os.path.join(settings.MEDIA_ROOT, filename))
     img = cv2.resize(img, (224, 224))
@@ -61,7 +61,7 @@ def generate_single_history_pdf(img_id, base_url):
     pdf_file.seek(0)
     return FileResponse(pdf_file, content_type='application/pdf', as_attachment=True, filename=f'{user.username}_result.pdf')
 
-@shared_task
+
 def generate_pdf_and_send_email(user_id, base_url, recipient_email, message):
     user = get_object_or_404(CustomUser, pk=user_id)
     
@@ -79,7 +79,7 @@ def generate_pdf_and_send_email(user_id, base_url, recipient_email, message):
     email.send()
     
     
-@shared_task
+
 def generate_single_record_pdf_and_send_mail(user_id, img_id, base_url, recipient_email, message):
     pdf_file = generate_single_history_pdf(img_id, base_url)
     user = get_object_or_404(CustomUser, pk=user_id)

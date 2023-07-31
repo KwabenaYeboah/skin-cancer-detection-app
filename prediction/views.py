@@ -24,9 +24,7 @@ class PredictView(LoginRequiredMixin, FormView):
         image_instance.save()
         img_path = image_instance.image.name
         
-        result = predict_image.delay(img_path)
-        # Wait for the task to finish and get the result
-        result,confidence = result.get()
+        result, confidence = predict_image(img_path)
 
         image_instance.result = result
         image_instance.confidence = confidence
@@ -73,7 +71,7 @@ class UserHistoryPDFEmailView(LoginRequiredMixin, View):
             return redirect('/')
         recipient_email = request.POST.get('recipient_email')
         message = request.POST.get('message')
-        generate_pdf_and_send_email.delay(request.user.pk, request.build_absolute_uri(), recipient_email, message)
+        generate_pdf_and_send_email(request.user.pk, request.build_absolute_uri(), recipient_email, message)
         
         messages.success(request, 'Prediction history Successfully Sent. Check your email.')
         return redirect('history')
@@ -83,9 +81,9 @@ class EmailRecord(LoginRequiredMixin, View):
         recipient_email = request.POST.get('recipient_email')
         message = request.POST.get('message')
         image_id = self.kwargs['pk']
-        generate_single_record_pdf_and_send_mail.delay(self.request.user.id, image_id, request.build_absolute_uri(), recipient_email, message)
+        generate_single_record_pdf_and_send_mail(self.request.user.id, image_id, request.build_absolute_uri(), recipient_email, message)
         
-        messages.success(request, 'Prediction history Successfully Sent. Check your email.')
+        messages.success(request, 'Prediction result Successfully Sent. Check your email.')
         return redirect('result', image_id)
 
 class ModelPerformanceView(View):
