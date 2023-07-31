@@ -4,5 +4,3 @@ tensorflow
 numpy
 opencv-python
 weasyprint
-celery
-redis
