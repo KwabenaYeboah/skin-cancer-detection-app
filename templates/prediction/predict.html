@@ -13,7 +13,7 @@
             </div>
         </div>
     </div>
-    <form method="POST" action="{% url 'predict' %}" enctype="multipart/form-data" class="border rounded p-4 custom-margin mx-auto border-primary border-1" style="max-width: 500px;" id="file-upload-form">
+    <form method="POST" action="{% url 'predict' %}" enctype="multipart/form-data" class="border rounded p-4 mt-3 mx-auto border-primary border-1" style="max-width: 500px;" id="file-upload-form">
         {% csrf_token %}
         <div class="d-flex flex-column align-items-center">
             <input type="file" name="image" id="file-upload" class="d-none" accept="image/*" required>
