@@ -14,7 +14,7 @@
             <form method="post" action="{% url 'signup' %}">
                 {% csrf_token %}
               <div class="form-group">
-                <label for="id_username">Username*</label>
+                <label for="id_username">Username</label>
                 <input type="text" name="username" maxlength="150" id="id_username" class="form-control" required autofocus>
                 {% if form.errors.username %}
                     <div class="text-danger">{{ form.errors.username }}</div>
@@ -22,7 +22,7 @@
               </div>
               
               <div class="form-group">
-                <label for="id_email">Email Address*</label>
+                <label for="id_email">Email Address</label>
                 <input type="email" name="email" id="id_email" maxlength="254" class="form-control" required autofocus>
                 {% if form.errors.email %}
                     <div class="text-danger">{{ form.errors.email }}</div>
@@ -30,19 +30,25 @@
             </div>
 
               <div class="form-group mt-3">
-                <label for="id_password1">Password*</label>
+                <label for="id_password1">Password</label>
                 <input type="password" name="password1" id="id_password1" autocomplete="new-password" class="form-control" required>
                 {% if form.errors.password1 %}
                     <div class="text-danger">{{ form.errors.password1 }}</div>
                 {% endif %}
             </div>
               <div class="form-group mt-3">
-                <label for="id_password2">Password Confirmation*</label>
+                <label for="id_password2">Password Confirmation</label>
                 <input type="password" name="password2" autocomplete="new-password" id="id_password2" class="form-control" required>
                 {% if form.errors.password2 %}
                     <div class="text-danger">{{ form.errors.password2 }}</div>
                 {% endif %}
               </div>
+
+              <div class="form-check mt-2">
+                <input class="form-check-input" type="checkbox" id="showPassword">
+                <label class="form-check-label" for="showPassword">Show Passwords</label>
+              </div>
+
               <button class="btn btn-lg btn-success btn-block w-100 mt-3" type="submit">Sign Up</button>
             </form>
           </div>
@@ -52,4 +58,21 @@
         </div>
       </div>
     </div>
+
+    <script>
+      document.getElementById("showPassword").addEventListener("click", function() {
+        var passwordField1 = document.getElementById("id_password1");
+        var passwordField2 = document.getElementById("id_password2");
+        if (passwordField1.type === "password") {
+          passwordField1.type = "text";
+        } else {
+          passwordField1.type = "password";
+        }
+        if (passwordField2.type === "password") {
+          passwordField2.type = "text";
+        } else {
+          passwordField2.type = "password";
+        }
+      });
+    </script>
 {% endblock %}

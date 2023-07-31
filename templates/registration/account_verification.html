@@ -7,7 +7,7 @@
                 <div class="card-body">
                     <h5 class="card-title text-center">Account Verification</h5>
                     <p class="text-center">Please enter the verification code sent to your email:</p>
-                    <form method="POST" action="{% url 'activate' %}">
+                    <form method="POST" action="{% url 'activate' email %}">
                         {% csrf_token %}
                         <div class="mb-3">
                             <input type="text" name="verification_code" autofocus required class="form-control" placeholder="Verification Code">
@@ -15,7 +15,7 @@
                         <button type="submit" class="btn btn-primary">Verify</button>
                     </form>
                     <div class="mt-3 text-center">
-                        <p class="mb-0">Didn't receive a code? <a href="#" data-bs-toggle="modal" data-bs-target="#resendModal">Resend</a></p>
+                        <p class="mb-0">Didn't receive a code? <a href="{% url 'resend' email %}">Resend</a></p>
                     </div>
                 </div>
             </div>
@@ -23,7 +23,7 @@
     </div>
 
     <!-- Resend Modal -->
-    <div class="modal fade" id="resendModal" tabindex="-1" aria-labelledby="resendModalLabel" aria-hidden="true">
+    <!-- <div class="modal fade" id="resendModal" tabindex="-1" aria-labelledby="resendModalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
@@ -31,7 +31,7 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <form method="POST" action="{% url 'resend' %}">
+                    <form method="POST" action="{% url 'resend' email %}">
                         {% csrf_token %}
                         <div class="mb-3">
                             <label for="id_email" class="form-label">Email:</label>
@@ -42,6 +42,6 @@
                 </div>
             </div>
         </div>
-    </div>
+    </div> -->
 {% endblock %}
 

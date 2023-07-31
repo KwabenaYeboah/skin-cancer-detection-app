@@ -14,8 +14,8 @@
             <form method="post" action="{% url 'login' %}">
                 {% csrf_token %}
               <div class="form-group">
-                <label for="id_username">Email Or Username</label>
-                <input type="text" name="username" id="id_username" class="form-control" required autofocus>
+                <label for="id_username">Username</label>
+                <input type="text" name="username" id="id_username" class="form-control" required autofocus placeholder="Enter Email or Username">
               </div>
   
               <div class="form-group mt-3">
@@ -25,8 +25,8 @@
   
               <div class="checkbox mb-3 d-flex justify-content-between align-items-center mt-3">
                 <div>
-                  <input type="checkbox" value="remember-me" id="remember-me">
-                  <label class="ms-2" for="remember-me">Remember me</label>
+                  <input type="checkbox" onclick="showPassword()">
+                  <label class="ms-2" for="remember-me">Show Password</label>
                 </div>
                 <a href="{% url 'password_reset' %}">Forgot password?</a>
               </div>
@@ -40,4 +40,15 @@
         </div>
       </div>
     </div>
+    
+    <script>
+      function showPassword() {
+        var x = document.getElementById("id_password");
+        if (x.type === "password") {
+          x.type = "text";
+        } else {
+          x.type = "password";
+        }
+      }
+    </script>
 {% endblock %}
