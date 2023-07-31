@@ -18,7 +18,7 @@
           <div class="col-sm-6">
             <div class="card text-white bg-warning mb-3">
               <div class="card-body text-center">
-                <h5 class="card-title">Val Precision</h5>
+                <h5 class="card-title">Validation Precision</h5>
                 <p class="card-text">{{ val_precision }}</p>
               </div>
             </div>
@@ -26,7 +26,7 @@
           <div class="col-sm-6">
             <div class="card text-white bg-success mb-3">
               <div class="card-body text-center">
-                <h5 class="card-title">Val Recall</h5>
+                <h5 class="card-title">Validation Recall</h5>
                 <p class="card-text">{{ val_recall }}</p>
               </div>
             </div>
@@ -44,6 +44,14 @@
               <div class="card-body text-center">
                 <h5 class="card-title">Test Accuracy</h5>
                 <p class="card-text">{{ test_accuracy }}</p>
+              </div>
+            </div>
+          </div>
+          <div class="col-sm-6">
+            <div class="card text-white bg-secondary mb-3">
+              <div class="card-body text-center">
+                <h5 class="card-title">AUC Score</h5>
+                <p class="card-text">{{ auc_score }}</p>
               </div>
             </div>
           </div>
@@ -85,6 +93,14 @@
               <img src="{% static 'metrics/confusion_matrix.png' %}" width="100px" height="250px" class="card-img-top" alt="Confusion Matrix">
               <div class="card-body">
                 <h6 class="card-title text-center">Confusion Matrix</h5>
+              </div>
+            </div>
+          </div>
+          <div class="col-sm-6">
+            <div class="card mb-3">
+              <img src="{% static 'metrics/auc_vs_val_auc.png' %}" width="100px" height="250px" class="card-img-top" alt="Confusion Matrix">
+              <div class="card-body">
+                <h6 class="card-title text-center">AUC vs Validation AUC</h5>
               </div>
             </div>
           </div>

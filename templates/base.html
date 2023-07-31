@@ -28,6 +28,18 @@
             white-space: nowrap;
             padding: .25rem 0.75rem;
         }
+
+        @keyframes pulse {
+            0% {
+                opacity: 1;
+            }
+            50% {
+                opacity: 0.5;
+            }
+            100% {
+                opacity: 1;
+            }
+        }
     </style>
     <title>Skin Cancer Detection</title>
     <link rel="icon" href="{% static 'favicon.ico' %}">
