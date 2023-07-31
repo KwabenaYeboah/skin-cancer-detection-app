@@ -29,8 +29,8 @@ class LoginView(View):
                 messages.warning(
                     request, "Account Not Activated. Check Your Email for Activation code!"
                 )
-                return redirect("activate")
-            messages.error(request, "Wrong Email or Password!")
+                return redirect("resend", user.email)
+            messages.error(request, "Wrong Email/Username or  Password!")
         return render(request, "registration/login.html", {"form": form})
 
 
@@ -50,7 +50,6 @@ class SignupView(View):
             user.verification_code = user.generate_verification_code()
             user.verification_code_expires = timezone.now() + timezone.timedelta(minutes=15)
             user.save()
-            print(user)
             mail_subject = "Account Verification Code"
             message = render_to_string("registration/verification_email.html", {
                 "user": user,
@@ -70,12 +69,12 @@ class SignupView(View):
                 request=request,
                 message="Kindly check your Email for your Account verification code!",
             )
-            return redirect("activate")
+            return redirect("activate", user.email)
         return render(request, "registration/signup.html", {"form": form})
 
 
 class AccountVerificationView(View):
-    def post(self, request):
+    def post(self, request, *args, **kwargs):
         verification_code = request.POST.get("verification_code")
         try:
             user = CustomUser.objects.get(verification_code=verification_code)
@@ -94,21 +93,23 @@ class AccountVerificationView(View):
             return redirect("login")
         else:
             messages.error(request, "Invalid verification code. Request for a new code")
-            return render(request, "registration/account_verification.html")
+            return render(request, "registration/account_verification.html", {"email":self.kwargs["email"]})
 
-    def get(self, request):
-        return render(request, "registration/account_verification.html")
+    def get(self, request, *args, **kwargs):
+        email = self.kwargs["email"]
+        return render(request, "registration/account_verification.html", {"email":email})
   
     
 class ResendVerificationCodeView(View):
-    def post(self, request):
-        email = request.POST.get('email')
+    def get(self, request, *args, **kwargs):
+        email = self.kwargs["email"]
+        print(email)
         try:
             user = CustomUser.objects.get(email=email)
             if user.is_active:
                 messages.info(request, "Account Already Activated. Kindly Login")
                 return redirect("login")
-            user.email_verification_code = user.generate_verification_code()
+            user.verification_code = user.generate_verification_code()
             user.verification_code_expires = timezone.now() + timezone.timedelta(minutes=15)
             user.save()
 
@@ -117,21 +118,13 @@ class ResendVerificationCodeView(View):
             message = render_to_string("registration/verification_email.html", {
                 "user": user,
                 "verification_code": user.verification_code,
-                "expires": user.verification_code_expires,
             })
             email = EmailMessage(
                 mail_subject, message, from_email="SkinCancerTeam.com", to=[user.email]
             )
             email.content_subtype = "html"
             email.send()
-
-            messages.success(
-                request, "Activation code has been resent. Please check your email."
-            )
-            return redirect("activate")
+            return redirect("activate", user.email)
         except (TypeError, ValueError, OverflowError, CustomUser.DoesNotExist):
-            messages.error(request, "The provided email does not exist!")
-            return redirect("activate")
-
-    def get(self, request):
-        return redirect("activate")
+            messages.error(request, "System Doesn't recognise user!")
+            return redirect("activate", user.email)

@@ -11,8 +11,8 @@ from .views import (
 
 urlpatterns = [
     path("signup/",SignupView.as_view(), name="signup"),
-    path("activate/", AccountVerificationView.as_view(), name="activate"),
-    path("reativate/", ResendVerificationCodeView.as_view(), name='resend'),
+    path("activate/<str:email>/", AccountVerificationView.as_view(), name="activate"),
+    path("reactivate/<str:email>/", ResendVerificationCodeView.as_view(), name='resend'),
     path("login/", view=LoginView.as_view(), name="login"),
     path("logout/", view=LogoutView.as_view(), name="logout"),
     path("password_reset/", PasswordResetView.as_view(), name="password_reset"),
