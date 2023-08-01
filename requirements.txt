@@ -4,3 +4,4 @@ tensorflow
 numpy
 opencv-python
 weasyprint
+mysqlclient

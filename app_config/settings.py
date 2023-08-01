@@ -65,13 +65,23 @@ WSGI_APPLICATION = 'app_config.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
-
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+if DEBUG:
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.sqlite3',
+            'NAME': BASE_DIR / 'db.sqlite3',
+        }
     }
-}
+else:
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.mysql',
+            'NAME': 'kwabenakwartengr$default',
+            'USER': 'kwabenakwartengr',
+            'PASSWORD': 'kobby.2020',
+            'HOST': 'kwabenakwartengregina.mysql.pythonanywhere-services.com'
+        }
+    }
 
 
 # Password validation
