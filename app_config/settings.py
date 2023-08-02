@@ -11,7 +11,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = '3f15763f0aaf948d460c11128d0a7cc03c254b345126b181a633e7fefb4745d569c885b421de1678762c4e7579e3a57c706c'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 # Application definition
 
