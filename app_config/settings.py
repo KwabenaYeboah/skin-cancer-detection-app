@@ -72,7 +72,7 @@ if DEBUG:
             'NAME': BASE_DIR / 'db.sqlite3',
         }
     }
-    ALLOWED_HOSTS = ['pipespromzy.org', 'kwabenakwartengregina.pythonanywhere.com',]
+    ALLOWED_HOSTS = ['www.pipespromzy.org', 'kwabenakwartengregina.pythonanywhere.com',]
 else:
     DATABASES = {
         'default': {
