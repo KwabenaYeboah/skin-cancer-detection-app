@@ -140,6 +140,25 @@
         $('#cropperModal').modal('hide');
     });
 
+    cameraInput.addEventListener('change', function(e) {
+        if (cameraInput.files && cameraInput.files[0]) {
+            var reader = new FileReader();
+            reader.onload = function(e) {
+                var imageSrc = e.target.result;
+    
+                // Show the cropping modal
+                $('#cropperModal').modal('show');
+    
+                // On modal shown, initialize the cropper
+                $('#cropperModal').on('shown.bs.modal', function() {
+                    initializeCropper(imageSrc);
+                });
+            };
+            reader.readAsDataURL(cameraInput.files[0]);
+        }
+    });
+    
+
     dropzone.addEventListener('dragover', function(e) {
         e.preventDefault();
         this.classList.add('dragging');

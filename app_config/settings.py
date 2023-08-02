@@ -83,6 +83,8 @@ else:
             'HOST': 'kwabenakwartengregina.mysql.pythonanywhere-services.com'
         }
     }
+    
+    ALLOWED_HOSTS = ['pipespromzy.org', 'kwabenakwartengregina.pythonanywhere.com',]
 
 
 # Password validation
