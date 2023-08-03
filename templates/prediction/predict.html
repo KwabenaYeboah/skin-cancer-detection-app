@@ -42,20 +42,21 @@
     <div id="loading" style="display: none; position: fixed; z-index: 1000; top: 50%; left: 50%; transform: translate(-50%, -50%); background: rgba(0,0,0,0.7); color: white; padding: 20px; border-radius: 10px; animation: pulse 1s infinite;">
         image processing underway, please wait...
     </div>
-    <div class="modal fade" id="cropperModal" tabindex="-1" aria-hidden="true">
-        <div class="modal-dialog modal-lg">
-            <div class="modal-content">
-                <div class="modal-body">
-                    <div id="cropper-container"></div> <!-- Cropper container -->
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-                    <button type="button" class="btn btn-primary" id="crop-button">Crop</button>
-                </div>
+    
+    
+</div>
+<div class="modal fade" id="cropperModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-body">
+                <div id="cropper-container"></div> <!-- Cropper container -->
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                <button type="button" class="btn btn-primary" id="crop-button">Crop</button>
             </div>
         </div>
     </div>
-    
 </div>
 
 {% block extra_js %}

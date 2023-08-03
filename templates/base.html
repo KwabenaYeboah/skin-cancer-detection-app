@@ -41,18 +41,18 @@
                 opacity: 1;
             }
         }
-        #cropper-container {
-            width: 400px;  /* or whatever fixed width you desire */
+        #cropperModal #cropper-container {
+            width: 400px; /* or whatever fixed width you desire */
             height: 400px; /* or whatever fixed height you desire */
             overflow: hidden; /* this will contain the image if it's too big */
         }
         
-        /* Optional: Center the cropper container within the modal */
-        .modal-body {
+        #cropperModal .modal-body {
             display: flex;
             justify-content: center;
             align-items: center;
         }
+        
     </style>
     <title>Skin Cancer Detection</title>
     <link rel="icon" href="{% static 'favicon.ico' %}">
