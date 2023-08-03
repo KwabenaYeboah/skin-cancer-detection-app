@@ -13,6 +13,8 @@ SECRET_KEY = '3f15763f0aaf948d460c11128d0a7cc03c254b345126b181a633e7fefb4745d569
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
+ALLOWED_HOSTS = ['pipespromzy.org',]
+
 # Application definition
 
 INSTALLED_APPS = [
@@ -62,27 +64,24 @@ WSGI_APPLICATION = 'app_config.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
-if DEBUG:
-    DATABASES = {
-        'default': {
-            'ENGINE': 'django.db.backends.sqlite3',
-            'NAME': BASE_DIR / 'db.sqlite3',
-        }
-    }
-    ALLOWED_HOSTS = ['*','kwabenakwartengregina.pythonanywhere.com',]
 
-else:
-    DATABASES = {
-        'default': {
-            'ENGINE': 'django.db.backends.mysql',
-            'NAME': 'kwabenakwartengr$skincancerapp',
-            'USER': 'kwabenakwartengr',
-            'PASSWORD': 'kwakwareg.2020',
-            'HOST': 'kwabenakwartengregina.mysql.pythonanywhere-services.com'
-        }
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.sqlite3',
+#         'NAME': BASE_DIR / 'db.sqlite3',
+#     }
+# }
+# ALLOWED_HOSTS = ['*','kwabenakwartengregina.pythonanywhere.com',]
+
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'kwabenakwartengr$skincancerapp',
+        'USER': 'kwabenakwartengr',
+        'PASSWORD': 'kwakwareg.2020',
+        'HOST': 'kwabenakwartengregina.mysql.pythonanywhere-services.com'
     }
-    
-    ALLOWED_HOSTS = ['pipespromzy.org',]
+}
 
 
 # Password validation
