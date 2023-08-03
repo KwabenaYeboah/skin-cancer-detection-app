@@ -9,11 +9,11 @@
     <br>
     <div class="d-flex flex-wrap justify-content-center">
         {% for prediction in predictions %}
-        <div class="card m-2 shadow" style="max-width: 350px;">
+         <div class="card m-2 shadow" style="max-width: 350px;"></a>
             <div class="row g-0">
-                <div class="col-12 text-center">
+                <a href="{% url 'result' prediction.pk %}"><div class="col-12 text-center">
                     <img src="{{ prediction.image.url }}" class="img-fluid rounded mx-auto d-block" alt="Uploaded image">
-                </div>
+                </div></a>
                 <div class="col-12">
                     <div class="card-body text-center">
                         {% if prediction.note %}
