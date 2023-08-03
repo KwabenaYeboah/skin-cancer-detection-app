@@ -75,9 +75,9 @@ else:
     DATABASES = {
         'default': {
             'ENGINE': 'django.db.backends.mysql',
-            'NAME': 'kwabenakwartengr$default',
+            'NAME': 'kwabenakwartengr$skincancerapp',
             'USER': 'kwabenakwartengr',
-            'PASSWORD': 'kobby.2020',
+            'PASSWORD': 'kwakwareg.2020',
             'HOST': 'kwabenakwartengregina.mysql.pythonanywhere-services.com'
         }
     }
