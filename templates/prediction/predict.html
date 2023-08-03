@@ -124,7 +124,7 @@
     });
 
     // Add an event listener for the crop button
-    document.querySelector('#crop-button').addEventListener('click', function(e) {
+    document.querySelector('#crop-button').addEventListener('click', function(e) {  
     var croppedImageDataURL = cropper.getCroppedCanvas().toDataURL('image/png');
     var croppedImageBlob = dataURLtoBlob(croppedImageDataURL);
     var croppedImageFile = new File([croppedImageBlob], "cropped-image.png", { type: "image/png" });
@@ -132,17 +132,15 @@
     // Replace the existing file with the cropped one
     var dataTransfer = new DataTransfer();
     dataTransfer.items.add(croppedImageFile);
-
-    if (cameraInput.files.length > 0) {
-        cameraInput.files = dataTransfer.files; // For the camera input
-    } else {
-        fileInput.files = dataTransfer.files; // For the file input
-    }
+    fileInput.files = dataTransfer.files; // Assign the cropped file to the file input
 
     preview.src = croppedImageDataURL;
     preview.style.display = 'block';
 
     $('#cropperModal').modal('hide');
+
+    // Clear the camera input to avoid confusion
+    cameraInput.value = '';
 });
 
 
