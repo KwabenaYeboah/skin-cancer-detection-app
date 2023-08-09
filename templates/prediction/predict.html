@@ -126,9 +126,9 @@
 
     // Add an event listener for the crop button
     document.querySelector('#crop-button').addEventListener('click', function(e) {  
-    var croppedImageDataURL = cropper.getCroppedCanvas().toDataURL('image/png');
+    var croppedImageDataURL = cropper.getCroppedCanvas().toDataURL('image/jpeg');
     var croppedImageBlob = dataURLtoBlob(croppedImageDataURL);
-    var croppedImageFile = new File([croppedImageBlob], "cropped-image.png", { type: "image/png" });
+    var croppedImageFile = new File([croppedImageBlob], "cropped-image.jpeg", { type: "image/jpeg" });
 
     // Replace the existing file with the cropped one
     var dataTransfer = new DataTransfer();
