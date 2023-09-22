@@ -7,7 +7,7 @@ from django.conf import settings
 
 os.environ['TF_CPP_MIN_LOG_LEVEL'] = '2'
 # Load the model just once when the module is imported
-model_path = os.path.join(settings.BASE_DIR, 'classifier/efficientnetb3.h5')
+model_path = os.path.join(settings.BASE_DIR, 'classifier/breastcancer.h5')
 model = load_model(model_path)
 Labels = ['Benign', 'Malignant']
 
