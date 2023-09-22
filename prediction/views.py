@@ -1,5 +1,7 @@
-from typing import Any
+import cv2
+import numpy as np
 
+from typing import Any
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views.generic import ListView, DetailView
 from django.views import View
@@ -8,6 +10,14 @@ from django.shortcuts import redirect, render
 from django.views.generic.edit import FormView
 from django.db.models.query import QuerySet
 from django.views.generic import TemplateView
+
+#API
+from rest_framework.parsers import MultiPartParser
+from rest_framework.response import Response
+from rest_framework.views import APIView
+from rest_framework import status
+from .butils import classify_image 
+from .serializers import ImageUploadSerializer
 
 from .models import Predict
 from .forms import PredictForm
@@ -89,15 +99,50 @@ class EmailRecord(LoginRequiredMixin, View):
 class ModelPerformanceView(View):
     def get(self, request):
         context = {
-        'f1_score': 0.82,
-        'val_precision': 0.83,  
-        'val_recall': 0.82,  
-        'test_loss': 0.31, 
-        'test_accuracy': 0.84,
-        'auc_score':0.89
+        'f1_score': '91%',
+        'val_precision': '90%',  
+        'val_recall': '89%',  
+        # 'test_loss': 0.31, 
+        'test_accuracy': '90.7%',
+        'auc_score':'97%'
     }
         return render(request, 'prediction/metrics.html', context)
     
 
 class AboutView(TemplateView):
     template_name = "prediction/about.html"
+    
+    
+
+# class ImageClassificationView(APIView):
+#     parser_classes = (MultiPartParser,)
+#     def post(self, request, *args, **kwargs):
+#         serializer = ImageUploadSerializer(data=request.data)
+#         if serializer.is_valid():
+#             image = serializer.validated_data['image']
+#             result, confidence = classify_image(image)
+
+#             return Response({'result': result, 'confidence': confidence}, status=status.HTTP_200_OK)
+#         else:
+#             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+class ImageClassificationView(APIView):
+    parser_classes = (MultiPartParser,)
+
+    def post(self, request, *args, **kwargs):
+        serializer = ImageUploadSerializer(data=request.data)
+        if serializer.is_valid():
+            image_file = serializer.validated_data['image']
+            
+            image_data = image_file.read()
+            nparr = np.fromstring(image_data, np.uint8)
+            img = cv2.imdecode(nparr, cv2.IMREAD_COLOR)
+
+            if img is not None:
+                result, confidence = classify_image(img)
+
+                return Response({'result': result, 'confidence': confidence}, status=status.HTTP_200_OK)
+            else:
+                return Response({'error': 'Failed to decode image'}, status=status.HTTP_400_BAD_REQUEST)
+        else:
+            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)

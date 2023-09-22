@@ -18,7 +18,7 @@
           <div class="col-sm-6">
             <div class="card text-white bg-warning mb-3">
               <div class="card-body text-center">
-                <h5 class="card-title">Validation Precision</h5>
+                <h5 class="card-title">Precision</h5>
                 <p class="card-text">{{ val_precision }}</p>
               </div>
             </div>
@@ -26,23 +26,15 @@
           <div class="col-sm-6">
             <div class="card text-white bg-success mb-3">
               <div class="card-body text-center">
-                <h5 class="card-title">Validation Recall</h5>
+                <h5 class="card-title">Sensitivity</h5>
                 <p class="card-text">{{ val_recall }}</p>
-              </div>
-            </div>
-          </div>
-          <div class="col-sm-6">
-            <div class="card text-white bg-danger mb-3">
-              <div class="card-body text-center">
-                <h5 class="card-title">Test Loss</h5>
-                <p class="card-text">{{ test_loss }}</p>
               </div>
             </div>
           </div>
           <div class="col-sm-6">
             <div class="card text-white bg-info mb-3">
               <div class="card-body text-center">
-                <h5 class="card-title">Test Accuracy</h5>
+                <h5 class="card-title">Accuracy</h5>
                 <p class="card-text">{{ test_accuracy }}</p>
               </div>
             </div>
@@ -66,7 +58,7 @@
         <div class="row">
           <div class="col-sm-6">
             <div class="card mb-3">
-              <img src="{% static 'metrics/train_val_acc.png' %}" width="100px" height="250px" class="card-img-top" alt="Training and Validation Accuracy">
+              <img src="{% static 'metrics/training_and_val_accuracy.png' %}" width="100px" height="250px" class="card-img-top" alt="Training and Validation Accuracy">
               <div class="card-body">
                 <h6 class="card-title text-center">Training and Validation Accuracy</h5>
               </div>
@@ -74,7 +66,7 @@
           </div>
           <div class="col-sm-6">
             <div class="card mb-3">
-              <img src="{% static 'metrics/train_val_loss.png' %}" width="100px" height="250px" class="card-img-top" alt="Training and Validation Loss">
+              <img src="{% static 'metrics/EfficientNetB3_loss.png' %}" width="100px" height="250px" class="card-img-top" alt="Training and Validation Loss">
               <div class="card-body">
                 <h6 class="card-title text-center">Training and Validation Loss</h5>
               </div>
@@ -82,7 +74,7 @@
           </div>
           <div class="col-sm-6">
             <div class="card mb-3">
-              <img src="{% static 'metrics/roc_curve.png' %}" width="100px" height="250px" class="card-img-top" alt="ROC Curve">
+              <img src="{% static 'metrics/ROC-AUC.png' %}" width="100px" height="250px" class="card-img-top" alt="ROC Curve">
               <div class="card-body">
                 <h6 class="card-title text-center">ROC Curve</h5>
               </div>
@@ -90,17 +82,9 @@
           </div>
           <div class="col-sm-6">
             <div class="card mb-3">
-              <img src="{% static 'metrics/confusion_matrix.png' %}" width="100px" height="250px" class="card-img-top" alt="Confusion Matrix">
+              <img src="{% static 'metrics/CFM.png' %}" width="100px" height="250px" class="card-img-top" alt="Confusion Matrix">
               <div class="card-body">
                 <h6 class="card-title text-center">Confusion Matrix</h5>
-              </div>
-            </div>
-          </div>
-          <div class="col-sm-6">
-            <div class="card mb-3">
-              <img src="{% static 'metrics/auc_val_auc.png' %}" width="100px" height="250px" class="card-img-top" alt="Val AUC">
-              <div class="card-body">
-                <h6 class="card-title text-center">AUC vs Validation AUC</h5>
               </div>
             </div>
           </div>

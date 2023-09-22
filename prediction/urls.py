@@ -2,10 +2,11 @@ from django.urls import path
 from .views import (PredictView, ResultView, 
                     HistoryView, UserHistoryPDFView, 
                     UserHistoryPDFEmailView, ModelPerformanceView,
-                    AboutView, EmailRecord)
+                    AboutView, EmailRecord, ImageClassificationView)
 
 urlpatterns = [
     path('', PredictView.as_view(), name='predict'),
+    path('predict/', ImageClassificationView.as_view(), name='breast_cancer'),
     path('result/<uuid:pk>/', ResultView.as_view(), name='result'),
     path('history/', HistoryView.as_view(), name='history'),
     path('history/pdf/', UserHistoryPDFView.as_view(), name='user_history_pdf'),

@@ -1,4 +1,5 @@
 import cv2
+import tensorflow as tf
 import weasyprint
 from tensorflow.keras.models import load_model
 import numpy as np
@@ -19,16 +20,37 @@ from accounts.models import CustomUser
 
 os.environ['TF_CPP_MIN_LOG_LEVEL'] = '2'
 # Load the model just once when the module is imported
-trained_model_path = os.path.join(settings.BASE_DIR, 'best_epoch')
+trained_model_path = os.path.join(settings.BASE_DIR, 'classifier/efficientnetb3.h5')
 trained_model = load_model(trained_model_path)
 Labels = ['Benign', 'Malignant']
 
+# Prefilter autoencoder model
+path1 = os.path.join(settings.BASE_DIR, 'autoencoder/autoencoder.json')
+json_file = open(path1, "r")
+loaded_model_json = json_file.read()
+json_file.close()
+autoencoder = tf.keras.models.model_from_json(loaded_model_json)
+path2 = os.path.join(settings.BASE_DIR, 'autoencoder/autoencoder.h5')
+autoencoder.load_weights(path2)
+
+
+THRESHOLD = 0.04
 
 def predict_image(filename):
     img = cv2.imread(os.path.join(settings.MEDIA_ROOT, filename))
-    img = cv2.resize(img, (224, 224))
-    img = img / 255
-    x = trained_model.predict(np.asarray([img]))[0]
+    img2 = cv2.resize(img, (224, 224))
+    img = np.array(img2)
+    img = img / 255.0
+    img = np.reshape(img, (1, 224, 224, 3))
+
+    decoded_img = autoencoder.predict(img)
+    mse = np.mean((img - decoded_img) ** 2)
+    print("MSE:", mse)
+    if mse > THRESHOLD:
+        return "Outlier", 0.0
+
+    x = trained_model.predict(np.asarray([img2]))[0]
+    print("X:",x)
     class_x = np.argmax(x)
     return Labels[class_x], x[class_x]*100
 
