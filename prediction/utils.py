@@ -24,14 +24,14 @@ trained_model_path = os.path.join(settings.BASE_DIR, 'classifier/efficientnetb3.
 trained_model = load_model(trained_model_path)
 Labels = ['Benign', 'Malignant']
 
-# Prefilter autoencoder model
-path1 = os.path.join(settings.BASE_DIR, 'autoencoder/autoencoder.json')
-json_file = open(path1, "r")
-loaded_model_json = json_file.read()
-json_file.close()
-autoencoder = tf.keras.models.model_from_json(loaded_model_json)
-path2 = os.path.join(settings.BASE_DIR, 'autoencoder/autoencoder.h5')
-autoencoder.load_weights(path2)
+# # Prefilter autoencoder model
+# path1 = os.path.join(settings.BASE_DIR, 'autoencoder/autoencoder.json')
+# json_file = open(path1, "r")
+# loaded_model_json = json_file.read()
+# json_file.close()
+# autoencoder = tf.keras.models.model_from_json(loaded_model_json)
+# path2 = os.path.join(settings.BASE_DIR, 'autoencoder/autoencoder.h5')
+# autoencoder.load_weights(path2)
 
 
 THRESHOLD = 0.04
@@ -39,15 +39,15 @@ THRESHOLD = 0.04
 def predict_image(filename):
     img = cv2.imread(os.path.join(settings.MEDIA_ROOT, filename))
     img2 = cv2.resize(img, (224, 224))
-    img = np.array(img2)
-    img = img / 255.0
-    img = np.reshape(img, (1, 224, 224, 3))
+    # img = np.array(img2)
+    # img = img / 255.0
+    # img = np.reshape(img, (1, 224, 224, 3))
 
-    decoded_img = autoencoder.predict(img)
-    mse = np.mean((img - decoded_img) ** 2)
-    print("MSE:", mse)
-    if mse > THRESHOLD:
-        return "Outlier", 0.0
+    # decoded_img = autoencoder.predict(img)
+    # mse = np.mean((img - decoded_img) ** 2)
+    # print("MSE:", mse)
+    # if mse > THRESHOLD:
+    #     return "Outlier", 0.0
 
     x = trained_model.predict(np.asarray([img2]))[0]
     print("X:",x)

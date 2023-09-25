@@ -111,20 +111,7 @@ class ModelPerformanceView(View):
 
 class AboutView(TemplateView):
     template_name = "prediction/about.html"
-    
-    
 
-# class ImageClassificationView(APIView):
-#     parser_classes = (MultiPartParser,)
-#     def post(self, request, *args, **kwargs):
-#         serializer = ImageUploadSerializer(data=request.data)
-#         if serializer.is_valid():
-#             image = serializer.validated_data['image']
-#             result, confidence = classify_image(image)
-
-#             return Response({'result': result, 'confidence': confidence}, status=status.HTTP_200_OK)
-#         else:
-#             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 class ImageClassificationView(APIView):
     parser_classes = (MultiPartParser,)
